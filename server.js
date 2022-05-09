@@ -1,6 +1,6 @@
 /****************/
 /*Set up the static file server*/
-let static = require ('node static'); 
+let static = require ('node-static'); 
 
 /* Set up the http server library*/
 let http = require ('http');
@@ -18,9 +18,9 @@ if ((typeof port == 'undefinied') || (port === null)) {
 /*Set up our static file web server to deliver files from the filesystem */
 let file = new static.Server(directory);
 
-let app =http.createServer(
+let app = http.createServer(
     function(request,response){
-        request.addLister('end',
+        request.addListener('end',
         function() {
             file.serve(request,response);
         }
