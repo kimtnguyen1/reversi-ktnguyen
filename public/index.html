@@ -14,7 +14,7 @@
     </style>
     <script>
       function goToLobby(){
-      let username = $('#nameInput').val();
+      let username = encodeURI($('#nameInput').val());
       window.location.href = "lobby.html?username="+username;
     }
 
@@ -45,7 +45,7 @@
         <div class="col-8">
           <div class="input-group">
             <span class="input-group-text" id="displayName">Name</span>
-            <input type="text" class="form-control text-nowrap" id="nameInput" placeholder="Choose your display name" aria-lablel="Enter your display name for use while playing Reversi" aria-describedby="displayName"/>
+            <input type="text" class="form-control text-nowrap" id="nameInput" placeholder="Choose your display name" aria-label="Enter your display name for use while playing Reversi" aria-describedby="displayName"/>
             <button type="submit" class="btn btn-primary text-nowrap" id="lobbyButton"
               onclick="goToLobby()">Enter Lobby</button>
         </div>
@@ -54,7 +54,7 @@
 
       <div class="row">
         <div class="col text-center">
-          <img class="im-fluid" src="assets/images/bottom-splash.png" alt="Reversi Logo 2"/>
+          <img class="img-fluid" src="assets/images/bottom-splash.png" alt="Reversi Logo 2"/>
         
         
       </div>
