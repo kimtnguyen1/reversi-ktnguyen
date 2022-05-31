@@ -286,7 +286,7 @@ socket.on('game_update', (payload) => {
         return;
     }
 
-    $("#my_color").html('<h3 id="my_color">I am' + my_color +'</h3>');
+    $("#my_color").html('<h3 id="my_color">I am ' + my_color +'</h3>');
 
     let whitesum = 0;
     let blacksum = 0;
