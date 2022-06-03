@@ -188,7 +188,7 @@ socket.on('join_room_response', (payload) => {
 
 
 
-    /*Annoucing in the chat that someone has arrived */
+    /* Annoucing in the chat that someone has arrived */
     let newHTML = '<p class=\'join_room_response\'>' + payload.username + ' joined the chatroom. (There are ' + payload.count + ' users in this room) </p>';
         payload.room + '. (There are ' + payload.count + ' users in this room)</p>';
     let newNode = $(newHTML);
@@ -212,7 +212,7 @@ socket.on('player_disconnected', (payload) => {
         domElements.hide("fade", 500);
     }
 
-    let newHTML = '<p class=\'left_room_response\'>'+ payload.username + ' left the ' + payload.room + '. (There are ' + payload.count + ' users in this room)</p>';
+    let newHTML = '<p class=\'left_room_response\'>'+ payload.username + ' left the chatroom. (There are ' + payload.count + ' users in this room)</p>';
         payload.room + '. (There are ' + payload.count + ' users in this room)</p>';
     let newNode = $(newHTML);
     newNode.hide();
@@ -246,20 +246,21 @@ socket.on('send_chat_message_response', (payload) => {
 })
 
 let old_board = [
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?'],
-    ['?','?','?','?','?','?','?','?']
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ']
 ];
 
 let my_color = "";
+let interval_timer;
 
 socket.on('game_update', (payload) => {
-    if (( typeof payload == 'undefined') || (payload === null)) {
+    if ((typeof payload == 'undefined') || (payload === null)) {
         console.log('Server did not send a payload');
         return;
     }
@@ -287,7 +288,7 @@ socket.on('game_update', (payload) => {
     }
 
     
-    if( my_color === 'white'){
+    if(my_color === 'white'){
         $("#my_color").html('<h3 id="my_color">I am white</h3>');
     }
     else if( my_color === 'black'){
@@ -369,11 +370,14 @@ socket.on('game_update', (payload) => {
 
                 const t = Date.now();
                 $('#'+ row +'_'+ column).html('<img class="img-fluid" src="assets/images/' + graphic + '?time=' + t + '" alt="' + altTag + '" />'); 
-
-                $('#' + row + '_' + column).off('click');
-                if (board[row][column] === ' ') {
-                    $('#' + row + '_' + column).addClass('hovered_over');
-                    $('#' + row + '_' + column).click(((r,c) => {
+            }
+            /* Set up interactivity */
+            $('#' + row + '_' + column).off('click');
+            $('#' + row + '_' + column).removeClass('hovered_over');
+            if(payload.game.whose_turn === my_color){
+                if(payload.game.legal_moves[row][column] === my_color.substr(0, 1)){
+                 $('#' + row + '_' + column).addClass('hovered_over');
+                 $('#' + row + '_' + column).click(((r,c) => {
                         return (()=> {
                             let payload = {
                                 row: r,
@@ -383,16 +387,40 @@ socket.on('game_update', (payload) => {
                             console.log('***** Client log message, sending \'play_token\' command: ' + JSON.stringify(payload));
                             socket.emit('play_token', payload);
                         });
-
                     })(row, column));
-                } 
-                else {
-                    $('#' + row + '_' + column).removeClass('hovered_over');
-
                 }
             }
+            
         }
     }
+
+    clearInterval(interval_timer)
+    interval_timer = setInterval( ((last_time) => {
+        return ( () => {
+            let d = new Date();
+            let elaspe_m = d.getTime() - last_time;
+            let minutes = Math.floor(elasped_m/ (60 *1000));
+            let seconds = Math.floor((elasped_m % (60 * 1000))/ 1000);
+            let total = minutes * 60 + seconds;
+            if (total > 100) {
+                total = 100;
+            }
+            $("#elasped").css("width",total + "%").attr("aria-valuenow", total);
+            let timestring = "" + seconds;
+            timestring = timestring.padStart(2, '0');
+            timestring = minutes + ":" + timestring;
+            if (total < 100) {
+               $("elasped").html(timestring);
+            }
+            else {
+                 $("elasped").html("Times up!");
+            }
+     
+        })
+})(payload.game.last_move_time)
+        
+        , 1000);
+
     $("#whitesum").html(whitesum);
     $("#blacksum").html(blacksum);
     old_board = board; 
