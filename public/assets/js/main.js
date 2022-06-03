@@ -410,10 +410,10 @@ socket.on('game_update', (payload) => {
             timestring = timestring.padStart(2, '0');
             timestring = minutes + ":" + timestring;
             if (total < 100) {
-               $("elasped").html(timestring);
+               $("#elasped").html(timestring);
             }
             else {
-                 $("elasped").html("Times up!");
+                 $("#elasped").html("Times up!");
             }
      
         })
