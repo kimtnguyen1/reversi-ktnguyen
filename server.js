@@ -591,7 +591,7 @@ socket.on('send_chat_message', (payload) => {
 
         let d = new Date();
         game.last_move_time = d.getTime();
-        
+
 
         send_game_update(socket, game_id, 'played a token');
      });

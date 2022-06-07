@@ -37,7 +37,14 @@
           <h3 id="lobbyTitle">Lobby</h3>
         </div>
       </div>
-
+      <div class="row m-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lobby</li>
+          </ol>
+        </nav>
+      </div>
       <div class="row m-3">
         <div class="col">
           <div class="row align-items-start justify-content-center">
@@ -52,7 +59,7 @@
               </div>
               <div class="input-group">
                 <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message" aria-label="Enter your message to send to the chat room"/>
-                <button type="submit" class="btn btn-primary text-nowrap" id="chatButton"
+                <button type="submit" class="btn btn-info text-nowrap" id="chatButton"
                   onclick="sendChatMessage()">Send</button>
             </div>
             <div id="messages">
