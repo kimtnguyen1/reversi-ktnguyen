@@ -47,34 +47,6 @@
         margin:0px;
         padding:0px;
       }
-      .table#game_board::before
-      {
-        content: '';
-        position: absolute;
-        width: 150px;
-        height: 140%;
-        background: linear-gradient(#00ccff, #d400d4);
-        animation: animate 4s linear infinite;
-      }
-      .table#game_board::after
-      {
-       content: '';
-       position: absolute;
-       inset: 4px;
-       background: #0e1538; 
-       border-radius: 16px; 
-      }
-      @keyframes animate
-      {
-        0% 
-        {
-          transform: rotate(0deg);
-        }
-        100%
-        {
-          transform: rotate(360deg);
-        }
-      }
 
 
 

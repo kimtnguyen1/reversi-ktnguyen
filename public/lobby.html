@@ -12,6 +12,7 @@
         background-color: lightpink;
       }
 
+
       #messagePane {
         background-color: #AFEEEE;
       }
@@ -45,20 +46,22 @@
           </ol>
         </nav>
       </div>
+      
+      
       <div class="row m-3">
         <div class="col">
-          <div class="row align-items-start justify-content-center">
+          <div class="row align-items-start justify-content-left">
             <div class="col-md-4">
               <h4>Players</h4>
               <div id="players" class="align-items-end text-right m-3">
               </div>
             </div>
-            <div class="col-md-8" id="messagePane">
+            <div class="col-md-8 text-right" id="messagePane">
               <div>
                 <h4>Messages</h4>
               </div>
               <div class="input-group">
-                <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message" aria-label="Enter your message to send to the chat room"/>
+                <input type="text" class="form-control justify-content-right" id="chatMessage" placeholder="Enter your message" aria-label="Enter your message to send to the chat room"/>
                 <button type="submit" class="btn btn-info text-nowrap" id="chatButton"
                   onclick="sendChatMessage()">Send</button>
             </div>
@@ -67,6 +70,13 @@
           </div>
           </div>
         </div>
+            <div class="row m-3">
+              <div class="col text-left">
+                <img class="img-fluid" src="assets/images/play.gif" alt="Play Logo 1"/>
+                </div>
+              </div>
+            
+        
       
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
